@@ -41,7 +41,8 @@ function runGame(gameType) {
     // This code will make sure the cursor is in the answer box field immediately
     document.getElementById("answer-box").focus();
 
-    // Creates two random numbers between 1 and 25
+    // Creates two random numbers between 1 and 25. By default the rand generates only numbers
+    // between 0 and 1 and floats, so we have to "floor" them down and we multiply it 
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
@@ -52,6 +53,8 @@ function runGame(gameType) {
 
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division") {
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}.`);
         // throw will stop the script and send the message to the console
@@ -100,6 +103,8 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
+    } else if (operator === "/") {
+        return [operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -151,3 +156,10 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operator').textContent = "x";
 }
 
+// In order to ake sure the first operand is divisible by the second 
+// operand by multiplying your two random numbers and using the result as operand1
+function displayDivisionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = (operand1 * operand2);
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
+}
