@@ -15,6 +15,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // This function enables the option to hit enter to submit answer. It will listen to "any key" pressed
+    // and then call a function, which is in our case an event. If so, it will check if the event key was
+    // the Enter key and if so, it will call the checkAnswer function.
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    })
+
     runGame("addition");
 });
 
@@ -24,6 +33,15 @@ document.addEventListener("DOMContentLoaded", function() {
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
+
+    // This code will clear the result box after submit question is done
+    // in order to always show an empty box.
+    document.getElementById("answer-box").value = "";
+
+    // This code will make sure the cursor is in the answer box field immediately
+    document.getElementById("answer-box").focus();
+
+    // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
